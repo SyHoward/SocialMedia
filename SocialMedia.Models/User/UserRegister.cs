@@ -18,4 +18,6 @@ public class UserRegister
 
     [MaxLength(100)]
     public string? LastName {get; set;}
+
+    public string? UserName {get; set;}
 }
