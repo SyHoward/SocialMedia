@@ -12,8 +12,8 @@ using SocialMedia.Data;
 namespace SocialMedia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231101142601_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231101170528_FirstFix")]
+    partial class FirstFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -184,7 +184,7 @@ namespace SocialMedia.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FristName")
+                    b.Property<string>("FirstName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
