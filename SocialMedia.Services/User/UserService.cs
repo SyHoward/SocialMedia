@@ -24,8 +24,9 @@ public class UserService : IUserService
     {
         UserEntity entity = new()
         {
-            Email = model.Email
-
+            Email = model.Email,
+            FirstName = model.FirstName,
+            LastName = model.LastName
         };
         
         IdentityResult registerResult = await _userManager.CreateAsync(entity, model.Password);
