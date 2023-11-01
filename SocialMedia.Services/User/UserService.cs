@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Identity;
 using SocialMedia.Data;
 using SocialMedia.Data.Entities;
@@ -22,15 +23,46 @@ public class UserService : IUserService
 
     public async Task<bool> RegisterUserAsync(UserRegister model)
     {
+        if (await CheckEmailAvailability(model.Email) == false)
+        {
+            Console.WriteLine("Invalid email, already in use.");
+            return false;
+        }
+
         UserEntity entity = new()
         {
             Email = model.Email,
             FirstName = model.FirstName,
-            LastName = model.LastName
+            LastName = model.LastName,
+            UserName = model.UserName
         };
         
         IdentityResult registerResult = await _userManager.CreateAsync(entity, model.Password);
 
         return registerResult.Succeeded;
     }
+    
+    public async Task<UserDetail?> GetUserByIdAsync(int userId)
+    {
+        UserEntity? entity = await _context.Users.FindAsync(userId);
+        if (entity is null)
+            return null;
+
+        UserDetail detail = new()
+        {
+            Id = entity.Id,
+            Email = entity.Email,
+            FirstName = entity.FirstName!,
+            LastName = entity.LastName!,
+            // UserName = entity.UserName!
+        };
+
+        return detail;
+    }
+    private async Task<bool> CheckEmailAvailability(string email)
+    {
+        UserEntity? existingUser = await _userManager.FindByEmailAsync(email);
+        return existingUser is null;
+    }
+
 }
