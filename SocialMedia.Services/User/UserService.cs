@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Identity;
 using SocialMedia.Data;
 using SocialMedia.Data.Entities;
@@ -32,7 +33,8 @@ public class UserService : IUserService
         {
             Email = model.Email,
             FirstName = model.FirstName,
-            LastName = model.LastName
+            LastName = model.LastName,
+            UserName = model.UserName
         };
         
         IdentityResult registerResult = await _userManager.CreateAsync(entity, model.Password);
@@ -52,6 +54,7 @@ public class UserService : IUserService
             Email = entity.Email,
             FirstName = entity.FirstName!,
             LastName = entity.LastName!,
+            // UserName = entity.UserName!
         };
 
         return detail;
