@@ -12,6 +12,7 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, IdentityRole<i
     
     public DbSet<PostEntity> Posts {get; set;} = null!;
 
+    public DbSet<CommentEntity> Comments {get; set;} = null!; //!Comments
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

@@ -4,12 +4,19 @@ using SocialMedia.Services.User;
 using SocialMedia.Services.Post;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SocialMedia.Services.Comment;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IUserService, UserService>();
+
+// builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+
+
 builder.Services.AddScoped<IPostService, PostService>();
+
 builder.Services.AddHttpContextAccessor();
 //  Add connection string and DbContext setup
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
