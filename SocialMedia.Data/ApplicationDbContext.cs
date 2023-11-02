@@ -20,27 +20,3 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, IdentityRole<i
         modelBuilder.Entity<UserEntity>().ToTable("Users");
     }
 }
-    public class SocialMediaContext : DbContext
-    {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Like> Likes { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Like>()
-                .HasKey(l => new { l.UserId, l.PostId });
-
-            modelBuilder.Entity<Like>()
-                .HasRequired(l => l.User)
-                .WithMany(u => u.Likes)
-                .HasForeignKey(l => l.UserId);
-
-            modelBuilder.Entity<Like>()
-                .HasRequired(l => l.Post)
-                .WithMany(p => p.Likes)
-                .HasForeignKey(l => l.PostId);
-
-            base.OnModelCreating(modelBuilder);
-        }
-    }
